@@ -8,9 +8,9 @@ version '0.1.0'
 
 supports 'amazon'
 supports 'centos'
-supports 'debian'
 supports 'redhat'
 supports 'scientific'
 supports 'ubuntu'
 
+depends 'yum'
 depends 'java'
