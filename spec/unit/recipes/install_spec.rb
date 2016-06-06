@@ -65,13 +65,6 @@ describe 'solr_6::install' do
       expect(chef_run).to_not create_user('root')
     end
 
-    # it 'creates the installation directory with proper ownership' do
-    #   expect(chef_run).to create_directory('/opt/solr').with(
-    #     user: 'solr',
-    #     group: 'solr'
-    #   )
-    # end
-
     it 'creates the data directory with proper ownership' do
       expect(chef_run).to create_directory('/var/solr').with(
         user: 'solr',
@@ -112,10 +105,10 @@ describe 'solr_6::install' do
         .with_content('SOLR_TIMEZONE="UTC"')
       expect(chef_run)
         .to render_file('/etc/default/solr.in.sh')
-        .with_content('ZK_HOST=""')
+        .with_content(/^#ZK_HOST=""/)
       expect(chef_run)
         .to render_file('/etc/default/solr.in.sh')
-        .with_content('ZK_CLIENT_TIMEOUT="15000"')
+        .with_content(/^#ZK_CLIENT_TIMEOUT="15000"/)
       expect(chef_run)
         .to render_file('/etc/default/solr.in.sh')
         .with_content("GC_LOG_OPTS=\"-verbose:gc \
@@ -128,6 +121,149 @@ describe 'solr_6::install' do
       expect(chef_run)
         .to render_file('/etc/default/solr.in.sh')
         .with_content('ENABLE_REMOTE_JMX_OPTS="false"')
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^#RMI_PORT="18983"/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content('SOLR_OPTS="-Xss256k"')
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content("GC_TUNE=\"-XX:NewRatio=3 \
+-XX:SurvivorRatio=4 \
+-XX:TargetSurvivorRatio=90 \
+-XX:MaxTenuringThreshold=8 \
+-XX:+UseConcMarkSweepGC \
+-XX:+UseParNewGC \
+-XX:ConcGCThreads=4 -XX:ParallelGCThreads=4 \
+-XX:+CMSScavengeBeforeRemark \
+-XX:PretenureSizeThreshold=64m \
+-XX:+UseCMSInitiatingOccupancyOnly \
+-XX:CMSInitiatingOccupancyFraction=50 \
+-XX:CMSMaxAbortablePrecleanTime=6000 \
+-XX:+CMSParallelRemarkEnabled \
+-XX:+ParallelRefProcEnabled\"")
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^#SOLR_AUTHENTICATION_CLIENT_CONFIGURER=""/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^#SOLR_AUTHENTICATION_OPTS=""/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^#SOLR_SSL_KEY_STORE=""/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^#SOLR_SSL_KEY_STORE_PASSWORD=""/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^#SOLR_SSL_TRUST_STORE=""/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^#SOLR_SSL_TRUST_STORE_PASSWORD=""/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^#SOLR_SSL_NEED_CLIENT_AUTH=""/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^#SOLR_SSL_WANT_CLIENT_AUTH=""/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^#SOLR_SSL_CLIENT_KEY_STORE=""/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^#SOLR_SSL_CLIENT_KEY_STORE_PASSWORD=""/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^#SOLR_SSL_CLIENT_TRUST_STORE=""/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^#SOLR_SSL_CLIENT_TRUST_STORE_PASSWORD=""/)
+    end
+  end
+  context 'when a zookeeper host is specified' do
+    let(:chef_run) do
+      runner = ChefSpec::SoloRunner.new do |node|
+        node.set['solr']['zk_host'] = 'zk1,zk2,zk3'
+      end
+      runner.converge(described_recipe)
+    end
+
+    it 'creates proper solr.in.sh template' do
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^ZK_HOST="zk1,zk2,zk3"/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^ZK_CLIENT_TIMEOUT="15000"/)
+    end
+  end
+  context 'solr authentication settings are specified' do
+    let(:chef_run) do
+      runner = ChefSpec::SoloRunner.new do |node|
+        node.set['solr']['solr_authentication_client_configurer'] = 'foo'
+        node.set['solr']['solr_authentication_opts'] = 'bar'
+      end
+      runner.converge(described_recipe)
+    end
+
+    it 'creates proper solr.in.sh template' do
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^SOLR_AUTHENTICATION_CLIENT_CONFIGURER="foo"/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^SOLR_AUTHENTICATION_OPTS="bar"/)
+    end
+  end
+  context 'when ssl settings are specified' do
+    let(:chef_run) do
+      runner = ChefSpec::SoloRunner.new do |node|
+        node.set['solr']['solr_ssl_key_store'] = 'abc'
+        node.set['solr']['solr_ssl_key_store_password'] = 'def'
+        node.set['solr']['solr_ssl_trust_store'] = 'ghi'
+        node.set['solr']['solr_ssl_trust_store_password'] = 'jkl'
+        node.set['solr']['solr_ssl_need_client_auth'] = 'true'
+        node.set['solr']['solr_ssl_want_client_auth'] = 'false'
+        node.set['solr']['solr_ssl_client_key_store'] = 'mno'
+        node.set['solr']['solr_ssl_client_key_store_password'] = 'pqr'
+        node.set['solr']['solr_ssl_client_trust_store'] = 'stu'
+        node.set['solr']['solr_ssl_client_trust_store_password'] = 'vwx'
+      end
+      runner.converge(described_recipe)
+    end
+
+    it 'creates proper solr.in.sh template' do
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^SOLR_SSL_KEY_STORE="abc"/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^SOLR_SSL_KEY_STORE_PASSWORD="def"/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^SOLR_SSL_TRUST_STORE="ghi"/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^SOLR_SSL_TRUST_STORE_PASSWORD="jkl"/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^SOLR_SSL_NEED_CLIENT_AUTH="true"/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^SOLR_SSL_WANT_CLIENT_AUTH="false"/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^SOLR_SSL_CLIENT_KEY_STORE="mno"/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^SOLR_SSL_CLIENT_KEY_STORE_PASSWORD="pqr"/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^SOLR_SSL_CLIENT_TRUST_STORE="stu"/)
+      expect(chef_run)
+        .to render_file('/etc/default/solr.in.sh')
+        .with_content(/^SOLR_SSL_CLIENT_TRUST_STORE_PASSWORD="vwx"/)
     end
   end
   context 'when on RedHat' do
