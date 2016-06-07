@@ -25,10 +25,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   # If this value is a shorthand to a box in Vagrant Cloud then
   # config.vm.box_url doesn't need to be specified.
-  config.vm.box = 'bento/ubuntu-14.04'
+  #config.vm.box = 'bento/ubuntu-14.04'
   # config.vm.box = 'bento/ubuntu-12.04'
   # config.vm.box = 'bento/centos-6.7'
-  # config.vm.box = 'bento/centos-7.2'
+  config.vm.box = 'bento/centos-7.2'
   # config.vm.box = 'bento/fedora-22'
   # config.vm.box = 'bento/fedora-23'
 

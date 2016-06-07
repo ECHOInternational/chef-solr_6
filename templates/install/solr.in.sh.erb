@@ -18,26 +18,26 @@ SOLR_OPTS="<%= node['solr']['solr_opts']%>"
 
 # Optional Settings
 ## Solr Cloud Mode
-<%= "#" if node['solr']['zk_host'].blank? %>ZK_HOST="<%= node['solr']['zk_host']%>"
-<%= "#" if node['solr']['zk_host'].blank? %>ZK_CLIENT_TIMEOUT="<%= node['solr']['zk_client_timeout']%>"
+<%= "#" if node['solr']['zk_host'] == '' %>ZK_HOST="<%= node['solr']['zk_host']%>"
+<%= "#" if node['solr']['zk_host'] == '' %>ZK_CLIENT_TIMEOUT="<%= node['solr']['zk_client_timeout']%>"
 
 ## Java Profiling Tools
 ENABLE_REMOTE_JMX_OPTS="<%= node['solr']['enable_remote_jmx_opts']%>"
 <%= "#" if node['solr']['enable_remote_jmx_opts'].downcase == 'false' %>RMI_PORT="<%= node['solr']['rmi_port']%>"
 
 ## Settings for authentication
-<%= "#" if node['solr']['solr_authentication_client_configurer'].blank? %>SOLR_AUTHENTICATION_CLIENT_CONFIGURER="<%= node['solr']['solr_authentication_client_configurer']%>"
-<%= "#" if node['solr']['solr_authentication_opts'].blank? %>SOLR_AUTHENTICATION_OPTS="<%= node['solr']['solr_authentication_opts']%>"
+<%= "#" if node['solr']['solr_authentication_client_configurer'] == '' %>SOLR_AUTHENTICATION_CLIENT_CONFIGURER="<%= node['solr']['solr_authentication_client_configurer']%>"
+<%= "#" if node['solr']['solr_authentication_opts'] == '' %>SOLR_AUTHENTICATION_OPTS="<%= node['solr']['solr_authentication_opts']%>"
 
 ## SSL-related system properties
-<%= "#" if node['solr']['solr_ssl_key_store'].blank? %>SOLR_SSL_KEY_STORE="<%= node['solr']['solr_ssl_key_store'] %>"
-<%= "#" if node['solr']['solr_ssl_key_store_password'].blank? %>SOLR_SSL_KEY_STORE_PASSWORD="<%= node['solr']['solr_ssl_key_store_password'] %>"
-<%= "#" if node['solr']['solr_ssl_trust_store'].blank? %>SOLR_SSL_TRUST_STORE="<%= node['solr']['solr_ssl_trust_store']%>"
-<%= "#" if node['solr']['solr_ssl_trust_store_password'].blank? %>SOLR_SSL_TRUST_STORE_PASSWORD="<%= node['solr']['solr_ssl_trust_store_password']%>"
-<%= "#" if node['solr']['solr_ssl_need_client_auth'].blank? %>SOLR_SSL_NEED_CLIENT_AUTH="<%= node['solr']['solr_ssl_need_client_auth']%>"
-<%= "#" if node['solr']['solr_ssl_want_client_auth'].blank? %>SOLR_SSL_WANT_CLIENT_AUTH="<%= node['solr']['solr_ssl_want_client_auth']%>"
+<%= "#" if node['solr']['solr_ssl_key_store'] == '' %>SOLR_SSL_KEY_STORE="<%= node['solr']['solr_ssl_key_store'] %>"
+<%= "#" if node['solr']['solr_ssl_key_store_password'] == '' %>SOLR_SSL_KEY_STORE_PASSWORD="<%= node['solr']['solr_ssl_key_store_password'] %>"
+<%= "#" if node['solr']['solr_ssl_trust_store'] == '' %>SOLR_SSL_TRUST_STORE="<%= node['solr']['solr_ssl_trust_store']%>"
+<%= "#" if node['solr']['solr_ssl_trust_store_password'] == '' %>SOLR_SSL_TRUST_STORE_PASSWORD="<%= node['solr']['solr_ssl_trust_store_password']%>"
+<%= "#" if node['solr']['solr_ssl_need_client_auth'] == '' %>SOLR_SSL_NEED_CLIENT_AUTH="<%= node['solr']['solr_ssl_need_client_auth']%>"
+<%= "#" if node['solr']['solr_ssl_want_client_auth'] == '' %>SOLR_SSL_WANT_CLIENT_AUTH="<%= node['solr']['solr_ssl_want_client_auth']%>"
 
-<%= "#" if node['solr']['solr_ssl_client_key_store'].blank? %>SOLR_SSL_CLIENT_KEY_STORE="<%= node['solr']['solr_ssl_client_key_store'] %>"
-<%= "#" if node['solr']['solr_ssl_client_key_store_password'].blank? %>SOLR_SSL_CLIENT_KEY_STORE_PASSWORD="<%= node['solr']['solr_ssl_client_key_store_password'] %>"
-<%= "#" if node['solr']['solr_ssl_client_trust_store'].blank? %>SOLR_SSL_CLIENT_TRUST_STORE="<%= node['solr']['solr_ssl_client_trust_store']%>"
-<%= "#" if node['solr']['solr_ssl_client_trust_store_password'].blank? %>SOLR_SSL_CLIENT_TRUST_STORE_PASSWORD="<%= node['solr']['solr_ssl_client_trust_store_password']%>"
+<%= "#" if node['solr']['solr_ssl_client_key_store'] == '' %>SOLR_SSL_CLIENT_KEY_STORE="<%= node['solr']['solr_ssl_client_key_store'] %>"
+<%= "#" if node['solr']['solr_ssl_client_key_store_password'] == '' %>SOLR_SSL_CLIENT_KEY_STORE_PASSWORD="<%= node['solr']['solr_ssl_client_key_store_password'] %>"
+<%= "#" if node['solr']['solr_ssl_client_trust_store'] == '' %>SOLR_SSL_CLIENT_TRUST_STORE="<%= node['solr']['solr_ssl_client_trust_store']%>"
+<%= "#" if node['solr']['solr_ssl_client_trust_store_password'] == '' %>SOLR_SSL_CLIENT_TRUST_STORE_PASSWORD="<%= node['solr']['solr_ssl_client_trust_store_password']%>"

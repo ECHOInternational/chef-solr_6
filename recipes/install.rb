@@ -57,8 +57,8 @@ end
 bash 'unpack_solr_install_script' do
   cwd ::File.dirname(src_filepath)
   code <<-EOH
-		tar xzf #{src_filename} solr-#{node['solr']['version']}/bin/install_solr_service.sh --strip-components=2
-	EOH
+        tar xzf #{src_filename} solr-#{node['solr']['version']}/bin/install_solr_service.sh --strip-components=2
+    EOH
   not_if { ::File.exist?('install_solr_service.sh') }
 end
 
@@ -66,6 +66,6 @@ end
 bash 'install_and_start_solr' do
   cwd ::File.dirname(src_filepath)
   code <<-EOH
-		./install_solr_service.sh #{src_filename} -u #{node['solr']['user']} -p #{node['solr']['port']} -d #{node['solr']['data_dir']} -i #{node['solr']['dir']} -f
-	EOH
+        ./install_solr_service.sh #{src_filename} -u #{node['solr']['user']} -p #{node['solr']['port']} -d #{node['solr']['data_dir']} -i #{node['solr']['dir']} -f
+    EOH
 end
