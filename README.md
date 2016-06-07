@@ -6,7 +6,7 @@ Solr 6 comes prepackaged with its own installation script, this cookbook simply 
 
 ## Recipes
 
- - `install` - This will optionally install java, download Solr, install, and start the server.
+ - `install` - This will install Java (optional), download Solr, configure, install, and start the server.
 
 ## Attributes
 
@@ -127,3 +127,21 @@ Java 8 is not currently installable on Debian with the Java community Chef recip
 ### Cores - Non Solr cloud
 
 Provide a location to download a preconfigured core
+
+## Contributing
+1. Fork the repository on Github
+2. Create a named feature branch (like `add_component_x`)
+3. Write your change
+4. Write and pass all tests
+6. Write new resource/attribute description to README.md
+7. Write description about changes to PR
+8. Submit a Pull Request using Github
+
+## Copyright & License
+Authors:: Nate Flood for ECHO Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
