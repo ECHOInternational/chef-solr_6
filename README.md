@@ -2,6 +2,8 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/ECHOInternational/chef-solr_6/badge.svg?branch=master)](https://coveralls.io/github/ECHOInternational/chef-solr_6?branch=master)
 
+[![Build Status](https://travis-ci.org/ECHOInternational/chef-solr_6.svg?branch=master)](https://travis-ci.org/ECHOInternational/chef-solr_6)
+
 Cookbook to install, configure, and start a Solr server (version 6).
 
 Solr 6 comes prepackaged with its own installation script, this cookbook simply prepares an appropriate environment and executes that install script.
