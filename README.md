@@ -124,10 +124,6 @@ Java 8 is not currently installable on Debian with the Java community Chef recip
 
 ## Todo
 
-### Overwrite the solrconfig.xml
-
-Provide a location to download an alternate solrconfig.xml file
-
 ### Cores - Non Solr cloud
 
 Provide a location to download a preconfigured core
