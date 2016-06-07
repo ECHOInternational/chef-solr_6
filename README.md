@@ -1,4 +1,4 @@
-# solr_6
+# solr_6 Cookbook
 
 Cookbook to install, configure, and start a Solr server (version 6).
 
