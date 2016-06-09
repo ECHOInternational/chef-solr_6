@@ -67,4 +67,6 @@ default['solr']['gc_tune'] = "-XX:NewRatio=3 \
 -XX:+CMSParallelRemarkEnabled \
 -XX:+ParallelRefProcEnabled"
 
+default['solr']['deploy_url'] = nil
+
 # rubocop:enable Metrics/LineLength

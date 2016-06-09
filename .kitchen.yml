@@ -9,7 +9,7 @@ platforms:
   - name: ubuntu-12.04
   - name: ubuntu-14.04
   - name: centos-6.7
-  - name: centos-7.2 #failing because sytemcrl says it's dead
+  - name: centos-7.2
   - name: fedora-22
   - name: fedora-23
 
@@ -17,4 +17,7 @@ suites:
   - name: default
     run_list:
       - recipe[solr_6::install]
+      - recipe[solr_6::deploy]
     attributes:
+      solr:
+        deploy_url: 'https://s3.amazonaws.com/assets.datacaffeine.net/mirror/test_core.tar.gz'

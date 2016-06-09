@@ -1,8 +1,6 @@
 # solr_6 Cookbook
 
-[![Coverage Status](https://coveralls.io/repos/github/ECHOInternational/chef-solr_6/badge.svg?branch=master)](https://coveralls.io/github/ECHOInternational/chef-solr_6?branch=master)
-
-[![Build Status](https://travis-ci.org/ECHOInternational/chef-solr_6.svg?branch=master)](https://travis-ci.org/ECHOInternational/chef-solr_6)
+[![Coverage Status](https://coveralls.io/repos/github/ECHOInternational/chef-solr_6/badge.svg?branch=master)](https://coveralls.io/github/ECHOInternational/chef-solr_6?branch=master) [![Build Status](https://travis-ci.org/ECHOInternational/chef-solr_6.svg?branch=master)](https://travis-ci.org/ECHOInternational/chef-solr_6)
 
 Cookbook to install, configure, and start a Solr server (version 6).
 
@@ -10,7 +8,10 @@ Solr 6 comes prepackaged with its own installation script, this cookbook simply 
 
 ## Recipes
 
- - `install` - This will install Java (optional), download Solr, configure, install, and start the server.
+ - `solr_6::install`    - This will install Java (optional), download Solr, configure, install,
+                        and start the server.
+ - `solr_6::deploy`     - This will download a tarball containing one or more solr cores to the
+                        SOLR_HOME directory and restart the server. This is useful for bootstraping Solr when not using Solr Cloud.
 
 ## Attributes
 
@@ -117,6 +118,17 @@ This recipe will automatically install JDK v1.8 from the community cookbook unle
  - `node['solr']['solr_ssl_client_trust_store_password']`
     - **Default:** "" (Disabled)
 
+#### Deploy
+ - `node['solr']['deploy_url']`
+    - URL from which a tarball can be downloaded containing Solr core(s)
+    - **Default:** nil
+
+If the `solr_6::deploy` recipe is invoked, but the `node['solr']['deploy_url']` is not set the recipe will raise an exception.
+
+Currently only publicly available urls can be downloaded. Providing more options could be added down the road (see [Contributing](#contributing)).
+
+One or more Solr core directories can be stored at the root of the archive. The provided url will be downloaded and extracted directly into the SOLR_HOME directory. Solr 6 provides core autodiscovery so cores should be available immediately after the service restarts.
+
 ## Supports
  - Ubuntu
  - CentOS
@@ -126,20 +138,13 @@ This recipe will automatically install JDK v1.8 from the community cookbook unle
 
 Java 8 is not currently installable on Debian with the Java community Chef recipe. Debian could be supported if Java 8 is installed manually.
 
-## Todo
+## Roadmap
 
-### Cores - Non Solr cloud
-
-Provide a location to download a preconfigured core
+v2.0 -- allow configuration of multiple instances through Chef Custom Resources
 
 ## Contributing
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write your change
-4. Write and pass all tests
-6. Write new resource/attribute description to README.md
-7. Write description about changes to PR
-8. Submit a Pull Request using Github
+Please see CONTRIBUTING for details.
+
 
 ## Copyright & License
 Authors:: Nate Flood for ECHO Inc. < [nflood@echonet.org](mailto:nflood@echonet.org) >
