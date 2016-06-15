@@ -29,19 +29,19 @@ describe 'solr_6::install' do
       expect(chef_run.node['java']['jdk_version']).to eq('8')
     end
 
-    it 'defaults the Solr version to 6.0.0' do
-      expect(chef_run.node['solr']['version']).to eq('6.0.0')
+    it 'defaults the Solr version to 6.0.1' do
+      expect(chef_run.node['solr']['version']).to eq('6.0.1')
     end
 
     it 'has a properly formatted source url for the Solr install' do
       expect(chef_run.node['solr']['url']).to eq(
-        'https://archive.apache.org/dist/lucene/solr/6.0.0/solr-6.0.0.tgz'
+        'https://archive.apache.org/dist/lucene/solr/6.0.1/solr-6.0.1.tgz'
       )
     end
 
     it 'downloads the source archive for Solr if they do not exist' do
       expect(chef_run).to create_remote_file_if_missing(
-        "#{Chef::Config['file_cache_path']}/solr-6.0.0.tgz"
+        "#{Chef::Config['file_cache_path']}/solr-6.0.1.tgz"
       )
     end
 
@@ -223,8 +223,8 @@ describe 'solr_6::install' do
         node.set['solr']['solr_ssl_key_store_password'] = 'def'
         node.set['solr']['solr_ssl_trust_store'] = 'ghi'
         node.set['solr']['solr_ssl_trust_store_password'] = 'jkl'
-        node.set['solr']['solr_ssl_need_client_auth'] = 'true'
-        node.set['solr']['solr_ssl_want_client_auth'] = 'false'
+        node.set['solr']['solr_ssl_need_client_auth'] = true
+        node.set['solr']['solr_ssl_want_client_auth'] = false
         node.set['solr']['solr_ssl_client_key_store'] = 'mno'
         node.set['solr']['solr_ssl_client_key_store_password'] = 'pqr'
         node.set['solr']['solr_ssl_client_trust_store'] = 'stu'
@@ -284,6 +284,40 @@ describe 'solr_6::install' do
 
     it 'should not include the lsof installer' do
       expect(chef_run).to_not install_yum_package('lsof')
+    end
+  end
+  context 'when on RedHat' do
+    let(:chef_run) do
+      runner = ChefSpec::SoloRunner.new(platform: 'redhat', version: '6.3')
+      runner.converge(described_recipe)
+    end
+
+    it 'should include the lsof installer' do
+      expect(chef_run).to install_yum_package('lsof')
+    end
+  end
+  context 'when create_user is false' do
+    let(:chef_run) do
+      runner = ChefSpec::SoloRunner.new do |node|
+        node.set['solr']['create_user'] = false
+      end
+      runner.converge(described_recipe)
+    end
+
+    it 'should not create the specified user' do
+      expect(chef_run).to_not create_user('solr')
+    end
+  end
+  context 'when create_group is false' do
+    let(:chef_run) do
+      runner = ChefSpec::SoloRunner.new do |node|
+        node.set['solr']['create_group'] = false
+      end
+      runner.converge(described_recipe)
+    end
+
+    it 'should not create the specified user' do
+      expect(chef_run).to_not create_group('solr')
     end
   end
 end

@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'knife-supermarket'
+
 group :lint do
   gem 'rubocop'
   gem 'overcommit'

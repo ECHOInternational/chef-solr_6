@@ -23,7 +23,7 @@ SOLR_OPTS="<%= node['solr']['solr_opts']%>"
 
 ## Java Profiling Tools
 ENABLE_REMOTE_JMX_OPTS="<%= node['solr']['enable_remote_jmx_opts']%>"
-<%= "#" if node['solr']['enable_remote_jmx_opts'].downcase == 'false' %>RMI_PORT="<%= node['solr']['rmi_port']%>"
+<%= "#" if node['solr']['enable_remote_jmx_opts'] == false %>RMI_PORT="<%= node['solr']['rmi_port']%>"
 
 ## Settings for authentication
 <%= "#" if node['solr']['solr_authentication_client_configurer'] == '' %>SOLR_AUTHENTICATION_CLIENT_CONFIGURER="<%= node['solr']['solr_authentication_client_configurer']%>"

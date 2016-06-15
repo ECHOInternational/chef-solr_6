@@ -1,6 +1,6 @@
 # solr_6 Cookbook
 
-[![Coverage Status](https://coveralls.io/repos/github/ECHOInternational/chef-solr_6/badge.svg?branch=master)](https://coveralls.io/github/ECHOInternational/chef-solr_6?branch=master) [![Build Status](https://travis-ci.org/ECHOInternational/chef-solr_6.svg?branch=master)](https://travis-ci.org/ECHOInternational/chef-solr_6)
+[![Coverage Status](https://coveralls.io/repos/github/ECHOInternational/chef-solr_6/badge.svg?branch=master)](https://coveralls.io/github/ECHOInternational/chef-solr_6?branch=master) [![Build Status](https://travis-ci.org/ECHOInternational/chef-solr_6.svg?branch=master)](https://travis-ci.org/ECHOInternational/chef-solr_6) [![Cookbook Version](https://img.shields.io/cookbook/v/solr_6.svg)](https://community.opscode.com/cookbooks/solr_6)
 
 Cookbook to install, configure, and start a Solr server (version 6).
 
@@ -18,7 +18,7 @@ Solr 6 comes prepackaged with its own installation script, this cookbook simply 
 ### Java
  - `node['solr']['install_java']`
     - Install the Java Virtual Machine
-    - **Default:** "true"
+    - **Default:** true
 
 This recipe will automatically install JDK v1.8 from the community cookbook unless `node['solr']['install_java']` is set to false. The java verson can be changed by overriding `node['java']['jdk_version']`
 
@@ -26,7 +26,7 @@ This recipe will automatically install JDK v1.8 from the community cookbook unle
 #### Installation
  - `node['solr']['version']`
     - Version of Solr to install
-    - **Default:** '6.0.0'
+    - **Default:** '6.0.1'
  - `node['solr']['url']`
     - Remote location of the Solr source files
     - **Default:** Automatically determined from version specified.
@@ -36,9 +36,15 @@ This recipe will automatically install JDK v1.8 from the community cookbook unle
  - `node['solr']['user']`
     - User that owns the Solr process
     - **Default:** 'solr'
+ - `node['solr']['create_user']`
+    - Create the above user?
+    - **Default:** true
  - `node['solr']['group']`
     - User Group that owns the Solr process
     - **Default:** 'solr'
+ - `node['solr']['create_group']`
+    - Create the above group?
+    - **Default:** true
  - `node['solr']['data_dir']`
      - Solr Data Directory
      - **Default:** '/var/solr'
@@ -82,7 +88,7 @@ This recipe will automatically install JDK v1.8 from the community cookbook unle
  - `node['solr']['enable_remote_jmx_opts']`
     - Activate the JMX RMI connector to allow remote JMX client applications
     to monitor the JVM hosting Solr; set to "false" to disable that behavior
-    - **Default:** 'false' (*recommended in production environments*)
+    - **Default:** false (*recommended in production environments*)
  - `node['solr']['rmi_port']`
     - Specifies the port for the RMI connector
     - **Default** '18983'
@@ -137,6 +143,13 @@ One or more Solr core directories can be stored at the root of the archive. The 
  - Fedora
 
 Java 8 is not currently installable on Debian with the Java community Chef recipe. Debian could be supported if Java 8 is installed manually.
+
+## Changelog
+
+### 0.2.0 -> 1.0.0
+ - **Breaking Change:** Node boolean values were incorrectly being set and read as strings. Now all boolean node values are boolean types.
+ - Two new attributes are available `node['solr']['create_user']` and `node['solr']['create_group']`. If set to `true` the user and group specified for solr will be created by the install recipe. This allows the creation of users to be disabled if upstream processes need to create the users and/or groups. **The default value is `true`.**
+ - The default version of Solr installed was changed to '6.0.1'
 
 ## Roadmap
 

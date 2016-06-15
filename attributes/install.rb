@@ -13,11 +13,13 @@ default['java']['jdk_version'] = '8'
 
 # Solr Defaults
 # rubocop:disable Metrics/LineLength
-default['solr']['version'] = '6.0.0'
+default['solr']['version'] = '6.0.1'
 default['solr']['url'] = "https://archive.apache.org/dist/lucene/solr/#{node['solr']['version']}/#{node['solr']['version'].split('.')[0].to_i < 4 ? 'apache-' : ''}solr-#{node['solr']['version']}.tgz"
 default['solr']['dir'] = '/opt'
 default['solr']['user'] = 'solr'
+default['solr']['create_user'] = true
 default['solr']['group'] = 'solr'
+default['solr']['create_group'] = true
 default['solr']['data_dir'] = '/var/solr'
 default['solr']['port'] = '8983'
 default['solr']['java_mem'] = '-Xms512m -Xmx512m'
@@ -25,7 +27,7 @@ default['solr']['host'] = node['fqdn']
 default['solr']['timezone'] = 'UTC'
 default['solr']['zk_host'] = ''
 default['solr']['zk_client_timeout'] = '15000'
-default['solr']['enable_remote_jmx_opts'] = 'false'
+default['solr']['enable_remote_jmx_opts'] = false
 default['solr']['rmi_port'] = '18983'
 default['solr']['solr_opts'] = '-Xss256k'
 

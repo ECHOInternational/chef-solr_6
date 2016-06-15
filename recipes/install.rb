@@ -26,12 +26,14 @@ end
 # Create Group (unless it is root)
 group node['solr']['group'] do
   not_if { node['solr']['group'] == 'root' }
+  only_if { node['solr']['create_group'] == true }
 end
 
 # Create User (unless it is root)
 user node['solr']['user'] do
   group node['solr']['group']
   not_if { node['solr']['user'] == 'root' }
+  only_if { node['solr']['create_user'] == true }
 end
 
 # Create Data Dir
