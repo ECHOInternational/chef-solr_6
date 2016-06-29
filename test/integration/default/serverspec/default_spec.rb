@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe user('solr') do
@@ -25,6 +26,7 @@ describe file('/var/solr/data/test_core/core.properties') do
   it { should exist }
   it { should be_file }
   it { should be_readable }
+  it { should be_owned_by 'solr' }
   it { should contain 'name=test_core' }
 end
 

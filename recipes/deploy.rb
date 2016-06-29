@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # Cookbook Name:: solr_6
 # Recipe:: deploy
@@ -25,7 +26,7 @@ end
 bash 'unpack_solr_core' do
   cwd ::File.dirname(src_filepath)
   code <<-EOH
-        tar -xzf #{src_filename} --directory #{node['solr']['data_dir']}/data
+        su #{node['solr']['user']} -c 'tar -xzf #{src_filename} --directory #{node['solr']['data_dir']}/data'
     EOH
 end
 

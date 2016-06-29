@@ -146,6 +146,9 @@ Java 8 is not currently installable on Debian with the Java community Chef recip
 
 ## Changelog
 
+### 1.0.0 -> 1.0.1
+ - Solr core files extracted with the `deploy` recipe now belong to the specified user. Previously the permissions were incorrect as all the files belonged to root.
+
 ### 0.2.0 -> 1.0.0
  - **Breaking Change:** Node boolean values were incorrectly being set and read as strings. Now all boolean node values are boolean types.
  - Two new attributes are available `node['solr']['create_user']` and `node['solr']['create_group']`. If set to `true` the user and group specified for solr will be created by the install recipe. This allows the creation of users to be disabled if upstream processes need to create the users and/or groups. **The default value is `true`.**
