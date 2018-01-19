@@ -6,7 +6,7 @@ gem 'knife-supermarket'
 
 group :lint do
   gem 'bundler-audit'
-  gem 'coveralls', '~> 0.8'
+  gem 'coveralls', '0.8.19'
   gem 'foodcritic'
   gem 'overcommit'
   gem 'rubocop'
