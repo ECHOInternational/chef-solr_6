@@ -15,6 +15,7 @@ end
 
 group :chef do
   gem 'berkshelf'
+  gem 'chef', '~> 12'
   gem 'chefspec'
   gem 'kitchen-vagrant'
   gem 'rspec'
