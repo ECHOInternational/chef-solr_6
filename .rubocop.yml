@@ -1,3 +1,9 @@
 AllCops:
     Exclude:
       - Vagrantfile
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'test/**/*.rb'
+    - 'spec/**/*.rb'

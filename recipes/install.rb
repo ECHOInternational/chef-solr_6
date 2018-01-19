@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #
 # Cookbook Name:: solr_6
 # Recipe:: install
@@ -12,7 +13,7 @@ if node['solr']['install_java']
 end
 
 # Solr Installation script reuquires lsof on Red Hat
-yum_package 'lsof' if platform_family?(%w(rhel fedora))
+yum_package 'lsof' if platform_family?(%w[rhel fedora])
 
 src_filename = ::File.basename(node['solr']['url'])
 src_filepath = "#{Chef::Config['file_cache_path']}/#{src_filename}"
@@ -59,16 +60,16 @@ end
 # Unpack Solr Install Script
 bash 'unpack_solr_install_script' do
   cwd ::File.dirname(src_filepath)
-  code <<-EOH
+  code <<-UNPACK_COMMAND
         tar xzf #{src_filename} solr-#{node['solr']['version']}/bin/install_solr_service.sh --strip-components=2
-    EOH
+    UNPACK_COMMAND
   not_if { ::File.exist?('install_solr_service.sh') }
 end
 
 # Install and start Solr
 bash 'install_and_start_solr' do
   cwd ::File.dirname(src_filepath)
-  code <<-EOH
+  code <<-INSTALL_COMMAND
         ./install_solr_service.sh #{src_filename} -u #{node['solr']['user']} -p #{node['solr']['port']} -d #{node['solr']['data_dir']} -i #{node['solr']['dir']} -f
-    EOH
+    INSTALL_COMMAND
 end

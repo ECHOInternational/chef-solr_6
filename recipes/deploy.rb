@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #
 # Cookbook Name:: solr_6
 # Recipe:: deploy
@@ -25,14 +26,14 @@ end
 # Unpack Downloaded File into the solr_home directory
 bash 'unpack_solr_core' do
   cwd ::File.dirname(src_filepath)
-  code <<-EOH
+  code <<-UNPACK_COMMAND
         su #{node['solr']['user']} -c 'tar -xzf #{src_filename} --directory #{node['solr']['data_dir']}/data'
-    EOH
+    UNPACK_COMMAND
 end
 
 # Restart Solr
 bash 'restart_solr' do
-  code <<-EOH
+  code <<-RESTART_COMMAND
     service solr restart
-  EOH
+  RESTART_COMMAND
 end
