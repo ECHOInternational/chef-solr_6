@@ -14,7 +14,7 @@ install:
   - bundle install
 
 before_script:
-  - bundle exec chef gem install coveralls -v '0.8.19'
+  # - bundle exec chef gem install coveralls -v '0.8.19'
   - git config --global user.email "travis@travis.ci"
   - git config --global user.name "Travis CI"
   - bundle exec overcommit --sign
