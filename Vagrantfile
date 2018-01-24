@@ -16,18 +16,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Set the version of chef to install using the vagrant-omnibus plugin
   # NOTE: You will need to install the vagrant-omnibus plugin:
   #
-  #   $ vagrant plugin install vagrant-omnibus
+  # $ vagrant plugin install vagrant-omnibus
   #
   if Vagrant.has_plugin?('vagrant-omnibus')
-    config.omnibus.chef_version = 'latest'
+    config.omnibus.chef_version = '12'
   end
 
   # Every Vagrant virtual environment requires a box to build off of.
   # If this value is a shorthand to a box in Vagrant Cloud then
   # config.vm.box_url doesn't need to be specified.
   # config.vm.box = 'bento/ubuntu-14.04'
-  config.vm.box = 'bento/ubuntu-12.04'
-  # config.vm.box = 'bento/centos-6.7'
+  # config.vm.box = 'bento/ubuntu-12.04'
+  config.vm.box = 'bento/centos-6.7'
   #config.vm.box = 'bento/centos-7.2'
   # config.vm.box = 'bento/fedora-22'
   # config.vm.box = 'bento/fedora-23'

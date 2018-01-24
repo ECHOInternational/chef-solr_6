@@ -4,14 +4,17 @@ driver:
 
 provisioner:
   name: chef_zero
+  product_name: chef
+  product_version: "12"
+
 
 platforms:
-  - name: ubuntu-12.04
-  - name: ubuntu-14.04
-  - name: centos-6.7
-  - name: centos-7.2
-  - name: fedora-22
-  - name: fedora-23
+  # - name: ubuntu-12.04
+  # - name: ubuntu-14.04
+  # - name: centos-6.7
+  # - name: centos-7.2
+  # - name: fedora-22
+  # - name: fedora-23
 
 suites:
   - name: default

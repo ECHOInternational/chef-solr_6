@@ -1,25 +1,16 @@
----
-sudo: false
-addons:
-  apt:
-    sources:
-      - chef-stable-precise
-    packages:
-      - chefdk2.3.1
+rvm:
+- 2.0.0
+- 2.1
+- 2.2
 
-before_install:
-  - gem install bundler
+sudo: true
 
-install:
-  - bundle install
+bundler_args: --without='vagrant'
 
 before_script:
-  # - bundle exec chef gem install coveralls -v '0.8.19'
-  - git config --global user.email "travis@travis.ci"
-  - git config --global user.name "Travis CI"
-  - bundle exec overcommit --sign
-  - bundle exec overcommit --sign pre-commit
+- source <(curl -sL https://raw.githubusercontent.com/zuazo/kitchen-in-travis/master/scripts/start_docker.sh)
 
 script:
-  - bundle exec overcommit -r
-  - chef exec rspec
+- travis_retry bundle exec rake integration:docker
+
+after_failure: cat docker_daemon.log
