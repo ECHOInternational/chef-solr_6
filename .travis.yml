@@ -1,16 +1,20 @@
 rvm:
-- 2.0.0
-- 2.1
 - 2.2
 
-sudo: true
+sudo: required
+services: docker
 
-bundler_args: --without='vagrant'
+env:
+  matrix:
+    - INSTANCE=default-ubuntu-1404
+    - INSTANCE=default-centos-72
 
-before_script:
-- source <(curl -sL https://raw.githubusercontent.com/zuazo/kitchen-in-travis/master/scripts/start_docker.sh)
+before_install: curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 0.18.30
+
+install: chef exec bundle install
+
+before_script: sudo iptables -L DOCKER || sudo iptables -N DOCKER
 
 script:
-- travis_retry bundle exec rake integration:docker
-
-after_failure: cat docker_daemon.log
+# Run test-kitchen with docker driver, for example:
+- KITCHEN_LOCAL_YAML=.kitchen.docker.yml chef exec bundle exec kitchen verify ${INSTANCE}
