@@ -25,7 +25,7 @@ task :build do
   Rake::Task['bundle:audit'].invoke
 end
 
-ddesc 'Run Test Kitchen integration tests'
+desc 'Run Test Kitchen integration tests'
 namespace :integration do
   desc 'Run integration tests with kitchen-vagrant'
   task :vagrant do
