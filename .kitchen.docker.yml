@@ -5,5 +5,6 @@ driver:
 
 platforms:
   - name: ubuntu-14.04
-#   run_list: recipe[apt]
-# - name: centos-6.6
+    run_list: recipe[apt]
+    driver_config:
+      image: ubuntu-upstart:14.04
