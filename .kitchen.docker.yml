@@ -15,3 +15,8 @@ platforms:
   - name: centos-7
     driver_config:
       image: milcom/centos7-systemd
+      privileged: true
+  - name: fedora
+    driver_config:
+      image: fedora/systemd-systemd
+      privileged: true
