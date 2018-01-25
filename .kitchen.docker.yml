@@ -12,3 +12,8 @@ platforms:
     run_list: recipe[apt]
     driver_config:
       image: ubuntu-upstart:14.04
+  - name: centos-7
+    driver_config:
+    # https://registry.hub.docker.com/u/milcom/centos7-systemd/dockerfile/
+    image: milcom/centos7-systemd
+    privileged: true
