@@ -12,12 +12,14 @@ platforms:
     run_list: recipe[apt]
     driver_config:
       image: ubuntu-upstart:14.04
-  - name: fedora
-    driver_config:
-      image: fedora/systemd-systemd
-      privileged: true
   - name: amazonlinux-2017.03
+    driver_config:
+      platform: rhel
   # - name: centos-7
   #   driver_config:
   #     image: milcom/centos7-systemd
+  #     privileged: true
+  # - name: fedora
+  #   driver_config:
+  #     image: fedora/systemd-systemd
   #     privileged: true

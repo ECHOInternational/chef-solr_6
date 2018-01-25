@@ -8,8 +8,8 @@ env:
   matrix:
     - INSTANCE=default-ubuntu-1204
     - INSTANCE=default-ubuntu-1404
-    - INSTANCE=default-fedora
     - INSTANCE=default-amazonlinux-201703
+    # - INSTANCE=default-fedora
     # - INSTANCE=default-centos-7
     # - INSTANCE=default-centos-67
     # - INSTANCE=default-centos-72
