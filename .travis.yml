@@ -6,17 +6,17 @@ services: docker
 
 env:
   matrix:
-    - INSTANCE=default-ubuntu-1204
-    - INSTANCE=default-ubuntu-1404
-    - INSTANCE=default-centos-67
+    # - INSTANCE=default-ubuntu-1204
+    # - INSTANCE=default-ubuntu-1404
+    # - INSTANCE=default-centos-67
     - INSTANCE=default-centos-72
-    - INSTANCE=default-fedora-22
-    - INSTANCE=default-fedora-23
+    # - INSTANCE=default-fedora-22
+    # - INSTANCE=default-fedora-23
 
 before_install: curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 0.18.30
 
 install:
-  - if [ $INSTANCE = default-centos-72 ]; then sudo apt-get install initscripts; fi
+  - if [ $INSTANCE = default-centos-72 ]; then sudo yum -y install initscripts && yum clean all; fi
   - chef exec bundle install
 
 before_script: sudo iptables -L DOCKER || sudo iptables -N DOCKER
