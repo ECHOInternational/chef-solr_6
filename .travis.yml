@@ -11,10 +11,16 @@ env:
 
 before_install: curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk -v 0.18.30
 
-install: chef exec bundle install
+install:
+  - if [ $INSTANCE = default-centos-72 ]; then yum -y install initscripts && yum clean all; else ; fi
+  - chef exec bundle install
 
 before_script: sudo iptables -L DOCKER || sudo iptables -N DOCKER
 
 script:
 # Run test-kitchen with docker driver, for example:
 - KITCHEN_LOCAL_YAML=.kitchen.docker.yml chef exec bundle exec kitchen verify ${INSTANCE}
+
+
+#Init scripts are not enabled on centos
+#RUN yum -y install initscripts && yum clean all
