@@ -15,7 +15,10 @@ describe file('/etc/default/solr.in.sh') do
 end
 
 describe service('solr') do
-  it { should be_enabled }
+  it { should be_enabled.with_level(2) }
+  it { should be_enabled.with_level(3) }
+  it { should be_enabled.with_level(4) }
+  it { should be_enabled.with_level(5) }
 end
 
 describe file('/var/solr/data/test_core') do
