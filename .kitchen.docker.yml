@@ -14,7 +14,7 @@ platforms:
       image: ubuntu-upstart:14.04
   - name: amazonlinux-2017.03
     driver_config:
-      platform: rhel
+      platform: centos
   # - name: centos-7
   #   driver_config:
   #     image: milcom/centos7-systemd
