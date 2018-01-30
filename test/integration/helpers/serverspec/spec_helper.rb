@@ -10,3 +10,9 @@ else
   set :backend, :cmd
   set :os, family: 'windows'
 end
+
+RSpec.configure do |c|
+  c.before :all do
+    c.path = '/bin:/sbin:/usr/sbin:/usr/bin'
+  end
+end
