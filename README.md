@@ -49,6 +49,9 @@ This recipe will automatically install JDK v1.8 from the community cookbook unle
      - Solr Data Directory
      - **Default:** '/var/solr'
      - Note: a 'data' folder will be appended which will be the SOLR_HOME location
+- `node['solr']['log_dir']`
+     - Solr Log Directory
+     - **Default:** '/var/solr/logs'
 
 #### Configuation
 ##### General

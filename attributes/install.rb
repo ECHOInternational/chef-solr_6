@@ -22,6 +22,7 @@ default['solr']['create_user'] = true
 default['solr']['group'] = 'solr'
 default['solr']['create_group'] = true
 default['solr']['data_dir'] = '/var/solr'
+default['solr']['log_dir'] = '/var/solr/logs'
 default['solr']['port'] = '8983'
 default['solr']['java_mem'] = '-Xms512m -Xmx512m'
 default['solr']['host'] = node['fqdn']

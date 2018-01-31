@@ -45,6 +45,14 @@ directory node['solr']['data_dir'] do
   action :create
 end
 
+# Create Log Dir
+directory node['solr']['log_dir'] do
+  owner node['solr']['user']
+  group node['solr']['group']
+  recursive true
+  action :create
+end
+
 # Create Include File Dir
 directory '/etc/default' do
   owner 'root'
